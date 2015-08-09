@@ -16,16 +16,16 @@ public class Jogo implements Serializable {
 	private List<String> grid;
 	
 	
-	public void setPacman(Long linha, Long coluna) {
-		this.pacman = new Pacman(linha, coluna);
+	public void setPacman(Pacman pacman) {
+		this.pacman = pacman;
 	}
 	
-	public void setComida(Long linha, Long coluna) {
-		this.comida = new Comida(linha, coluna);
+	public void setComida(Comida comida) {
+		this.comida = comida;
 	}
 	
-	public void setDimensoes(Long linha, Long coluna) {
-		this.dimensoes = new DimensaoGrid(linha, coluna);
+	public void setDimensoes(DimensaoGrid dimensaoGrid) {
+		this.dimensoes = dimensaoGrid;
 	}
 
 	public void addGrid(String grid) {
@@ -33,47 +33,13 @@ public class Jogo implements Serializable {
 		this.grid.add(grid);
 	}
 	
-	
-	
-	public @Data class Pacman implements Serializable {
+	public void imprimirMelhorCaminho() {
 		
-		private static final long serialVersionUID = -3652926977790367274L;
-		
-		private Long linha;
-		private Long coluna;
-		
-		public Pacman(Long linha, Long coluna) {
-			this.linha = linha;
-			this.coluna = coluna;
-		}
 	}
 	
-	public @Data class Comida implements Serializable {
-		
-		private static final long serialVersionUID = 3200982652747691809L;
+	
+	
 
-		private Long linha;
-		private Long coluna;
-		
-		public Comida(Long linha, Long coluna) {
-			this.linha = linha;
-			this.coluna = coluna;
-		}
-	}
-
-	public @Data class DimensaoGrid implements Serializable {
-		
-		private static final long serialVersionUID = -3935868702480627298L;
-		
-		private Long linhas;
-		private Long colunas;
-		
-		
-		public DimensaoGrid(Long linhas, Long colunas) {
-			this.linhas = linhas;
-			this.colunas = colunas;
-		}
-	}
 
 }
 

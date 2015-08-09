@@ -6,9 +6,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import br.com.pacman.arquivo.LeitorArquivo;
+import br.com.pacman.model.Comida;
+import br.com.pacman.model.DimensaoGrid;
 import br.com.pacman.model.Jogo;
+import br.com.pacman.model.Pacman;
 
-public class Pacman {
+public class JogoPacman {
 
 	private final String REGEX_PACMAN = "^P=\\((\\d{1,2}),(\\d{1,2})\\)$";
 	private final String REGEX_COMIDA = "^C=\\((\\d{1,2}),(\\d{1,2})\\)$";
@@ -24,10 +27,6 @@ public class Pacman {
 
 	private LeitorArquivo leitorArquivo = new LeitorArquivo();
 	
-	public static void main(String[] args) {
-		new Pacman().iniciarJogo();
-	}
-	
 	public void iniciarJogo() {
 		List<Jogo> jogos = montarJogos();
 	}
@@ -38,11 +37,13 @@ public class Pacman {
 		
 		Jogo jogo = new Jogo();
 		for (String linha : linhas) {
-			if (analisarLinha(linha.trim(), jogo) == PATTERN_FIM) {
+			/* if (analisarLinha(linha.trim(), jogo) == PATTERN_FIM) {
 				jogos.add(jogo);
 				jogo = new Jogo();
-			}
+			} */
+			analisarLinha(linha.trim(), jogo);
 		}
+		jogos.add(jogo);
 		
 		return jogos;
 	}
@@ -58,13 +59,13 @@ public class Pacman {
 		
 		if (matcherPacman.matches()) {
 			pattern = PATTERN_PACMAN;
-			jogo.setPacman(Long.parseLong(matcherPacman.group(1)), Long.parseLong(matcherPacman.group(2)));
+			jogo.setPacman(new Pacman(Long.parseLong(matcherPacman.group(1)), Long.parseLong(matcherPacman.group(2))));
 		} else if (matcherComida.matches()) {
 			pattern = PATTERN_COMIDA;
-			jogo.setComida(Long.parseLong(matcherComida.group(1)), Long.parseLong(matcherComida.group(2)));
+			jogo.setComida(new Comida(Long.parseLong(matcherComida.group(1)), Long.parseLong(matcherComida.group(2))));
 		} else if (matcherDimensoesGrid.matches()) {
 			pattern = PATTERN_DIMENSOES_GRID;
-			jogo.setDimensoes(Long.parseLong(matcherDimensoesGrid.group(1)), Long.parseLong(matcherDimensoesGrid.group(2)));
+			jogo.setDimensoes(new DimensaoGrid(Long.parseLong(matcherDimensoesGrid.group(1)), Long.parseLong(matcherDimensoesGrid.group(2))));
 		} else if (matcherGrid.matches()) {
 			pattern = PATTERN_GRID;
 			jogo.addGrid(matcherGrid.group(1));
