@@ -1,5 +1,6 @@
 package br.com.pacman.jogo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -11,8 +12,10 @@ import br.com.pacman.model.DimensaoGrid;
 import br.com.pacman.model.Jogo;
 import br.com.pacman.model.Pacman;
 
-public class JogoPacman {
+public class JogoPacman implements Serializable {
 
+	private static final long serialVersionUID = 4042758511106783875L;
+	
 	private final String REGEX_PACMAN = "^P=\\((\\d{1,2}),(\\d{1,2})\\)$";
 	private final String REGEX_COMIDA = "^C=\\((\\d{1,2}),(\\d{1,2})\\)$";
 	private final String REGEX_DIMENSOES_GRID = "^(\\d{1,2})x(\\d{1,2})$";

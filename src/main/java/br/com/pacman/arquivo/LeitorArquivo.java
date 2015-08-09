@@ -2,12 +2,15 @@ package br.com.pacman.arquivo;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class LeitorArquivo {
+public class LeitorArquivo implements Serializable {
 
+	private static final long serialVersionUID = -7402580264152967775L;
+	
 	private final String ARQUIVO = "src/main/resources/input.txt";
 	
 	
