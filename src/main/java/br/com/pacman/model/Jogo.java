@@ -12,17 +12,22 @@ public class Jogo implements Serializable {
 	
 	private Pacman pacman;
 	private Comida comida;
+	private DimensaoGrid dimensoes;
 	private List<String> grid;
 	
 	
-	public void setPacman(String pacman) {
-		this.pacman = new Pacman(pacman);
+	public void setPacman(Long linha, Long coluna) {
+		this.pacman = new Pacman(linha, coluna);
 	}
 	
-	public void setComida(String comida) {
-		this.comida = new Comida(comida);
+	public void setComida(Long linha, Long coluna) {
+		this.comida = new Comida(linha, coluna);
 	}
 	
+	public void setDimensoes(Long linha, Long coluna) {
+		this.dimensoes = new DimensaoGrid(linha, coluna);
+	}
+
 	public void addGrid(String grid) {
 		if (this.grid == null) this.grid = new ArrayList<String>();
 		this.grid.add(grid);
@@ -34,31 +39,40 @@ public class Jogo implements Serializable {
 		
 		private static final long serialVersionUID = -3652926977790367274L;
 		
-
-		private String linha;
+		private Long linha;
+		private Long coluna;
 		
-		private String coluna;
-		
-		public Pacman(String pacman) {
-			String[] dimensao = pacman.split(",");
-			this.linha = dimensao[0];
-			this.coluna = dimensao[1];
+		public Pacman(Long linha, Long coluna) {
+			this.linha = linha;
+			this.coluna = coluna;
 		}
-		
 	}
 	
-	public @Data class Comida {
+	public @Data class Comida implements Serializable {
 		
-		private String linha;
+		private static final long serialVersionUID = 3200982652747691809L;
+
+		private Long linha;
+		private Long coluna;
 		
-		private String coluna;
-		
-		public Comida(String comida) {
-			String[] dimensao = comida.split(",");
-			this.linha = dimensao[0];
-			this.coluna = dimensao[1];
+		public Comida(Long linha, Long coluna) {
+			this.linha = linha;
+			this.coluna = coluna;
 		}
+	}
+
+	public @Data class DimensaoGrid implements Serializable {
 		
+		private static final long serialVersionUID = -3935868702480627298L;
+		
+		private Long linhas;
+		private Long colunas;
+		
+		
+		public DimensaoGrid(Long linhas, Long colunas) {
+			this.linhas = linhas;
+			this.colunas = colunas;
+		}
 	}
 
 }
