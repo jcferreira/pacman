@@ -4,30 +4,29 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Jogo implements Serializable {
 
 	private static final long serialVersionUID = -2874522428332270252L;
 	
+	@Getter @Setter
 	private Pacman pacman;
+	
+	@Getter @Setter
 	private Comida comida;
+	
+	@Getter @Setter
 	private DimensaoGrid dimensoes;
+	
+	@Getter
 	private List<String> grid;
 	
+	@Getter @Setter
+	private String[][] melhorCaminho;
 	
-	public void setPacman(Pacman pacman) {
-		this.pacman = pacman;
-	}
 	
-	public void setComida(Comida comida) {
-		this.comida = comida;
-	}
-	
-	public void setDimensoes(DimensaoGrid dimensaoGrid) {
-		this.dimensoes = dimensaoGrid;
-	}
-
 	public void addGrid(String grid) {
 		if (this.grid == null) this.grid = new ArrayList<String>();
 		this.grid.add(grid);

@@ -8,11 +8,9 @@ public @Data class Comida implements Serializable {
 	
 	private static final long serialVersionUID = 3200982652747691809L;
 
-	private Long linha;
-	private Long coluna;
+	private Coordenadas coordenadas;
 	
 	public Comida(Long linha, Long coluna) {
-		this.linha = linha;
-		this.coluna = coluna;
+		this.coordenadas = new Coordenadas(linha, coluna);
 	}
 }

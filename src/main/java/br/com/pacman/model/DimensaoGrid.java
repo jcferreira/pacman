@@ -8,13 +8,11 @@ public @Data class DimensaoGrid implements Serializable {
 
 	private static final long serialVersionUID = -3935868702480627298L;
 	
-	private Long linhas;
-	private Long colunas;
+	private Coordenadas coordenadas;
 	
 	
 	public DimensaoGrid(Long linhas, Long colunas) {
-		this.linhas = linhas;
-		this.colunas = colunas;
+		this.coordenadas = new Coordenadas(linhas, colunas);
 	}
 
 }
