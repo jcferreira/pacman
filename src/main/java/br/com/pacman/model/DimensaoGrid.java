@@ -10,8 +10,7 @@ public @Data class DimensaoGrid implements Serializable {
 	
 	private Coordenadas coordenadas;
 	
-	
-	public DimensaoGrid(Long linhas, Long colunas) {
+	public DimensaoGrid(int linhas, int colunas) {
 		this.coordenadas = new Coordenadas(linhas, colunas);
 	}
 

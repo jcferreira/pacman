@@ -4,13 +4,12 @@ import java.io.Serializable;
 
 import lombok.Data;
 
-public @Data class Pacman implements Serializable {
+public @Data class Pacman extends Posicao implements Serializable {
 	
 	private static final long serialVersionUID = -3652926977790367274L;
 	
-	private Coordenadas coordenadas;
-	
-	public Pacman(Long linha, Long coluna) {
-		this.coordenadas = new Coordenadas(linha, coluna);
+	public Pacman(int linha, int coluna) {
+		super(new Coordenadas(linha, coluna));
 	}
+	
 }

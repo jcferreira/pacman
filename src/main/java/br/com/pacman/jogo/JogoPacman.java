@@ -3,6 +3,7 @@ package br.com.pacman.jogo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,14 +45,15 @@ public class JogoPacman implements Serializable {
 				jogos.add(jogo);
 				jogo = new Jogo();
 			} */
-			analisarLinha(linha.trim(), jogo);
+			criarEstruturaJogo(linha.trim(), jogo);
 		}
+		
 		jogos.add(jogo);
 		
 		return jogos;
 	}
 	
-	private Pattern analisarLinha(String linha, Jogo jogo) {
+	private Pattern criarEstruturaJogo(String linha, Jogo jogo) {
 		Pattern pattern = null;
 		
 		Matcher matcherPacman = PATTERN_PACMAN.matcher(linha);
@@ -62,13 +64,13 @@ public class JogoPacman implements Serializable {
 		
 		if (matcherPacman.matches()) {
 			pattern = PATTERN_PACMAN;
-			jogo.setPacman(new Pacman(Long.parseLong(matcherPacman.group(1)), Long.parseLong(matcherPacman.group(2))));
+			jogo.setPacman(new Pacman(Integer.parseInt(matcherPacman.group(1)), Integer.parseInt(matcherPacman.group(2))));
 		} else if (matcherComida.matches()) {
 			pattern = PATTERN_COMIDA;
-			jogo.setComida(new Comida(Long.parseLong(matcherComida.group(1)), Long.parseLong(matcherComida.group(2))));
+			jogo.setComida(new Comida(Integer.parseInt(matcherComida.group(1)), Integer.parseInt(matcherComida.group(2))));
 		} else if (matcherDimensoesGrid.matches()) {
 			pattern = PATTERN_DIMENSOES_GRID;
-			jogo.setDimensoes(new DimensaoGrid(Long.parseLong(matcherDimensoesGrid.group(1)), Long.parseLong(matcherDimensoesGrid.group(2))));
+			jogo.setDimensoes(new DimensaoGrid(Integer.parseInt(matcherDimensoesGrid.group(1)), Integer.parseInt(matcherDimensoesGrid.group(2))));
 		} else if (matcherGrid.matches()) {
 			pattern = PATTERN_GRID;
 			jogo.addGrid(matcherGrid.group(1));

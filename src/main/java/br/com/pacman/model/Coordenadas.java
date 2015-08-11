@@ -8,10 +8,10 @@ public @Data class Coordenadas implements Serializable {
 
 	private static final long serialVersionUID = 6085456245659351743L;
 	
-	private Long linha;
-	private Long coluna;
+	private int linha;
+	private int coluna;
 
-	public Coordenadas(Long linha, Long coluna) {
+	public Coordenadas(int linha, int coluna) {
 		this.linha = linha;
 		this.coluna = coluna;
 	}

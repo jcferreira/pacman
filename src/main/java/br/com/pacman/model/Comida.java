@@ -4,13 +4,12 @@ import java.io.Serializable;
 
 import lombok.Data;
 
-public @Data class Comida implements Serializable {
+public @Data class Comida extends Posicao implements Serializable {
 	
 	private static final long serialVersionUID = 3200982652747691809L;
 
-	private Coordenadas coordenadas;
-	
-	public Comida(Long linha, Long coluna) {
-		this.coordenadas = new Coordenadas(linha, coluna);
+	public Comida(int linha, int coluna) {
+		super(new Coordenadas(linha, coluna));
 	}
+	
 }
