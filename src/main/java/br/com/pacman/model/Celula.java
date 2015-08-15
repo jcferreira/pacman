@@ -10,6 +10,8 @@ public @Data class Celula extends Posicao implements Serializable {
 
 	private TipoCelula tipoCelula;
 	
+	private Celula celulaPai;
+	
 	
 	public Celula(int linha, int coluna, String valorCelula) {
 		super(new Coordenadas(linha, coluna));
@@ -21,12 +23,29 @@ public @Data class Celula extends Posicao implements Serializable {
 			   Math.abs(this.getCoordenadas().getColuna() - comida.getCoordenadas().getColuna());
 	}
 	
-	public boolean isParede() {
-		return TipoCelula.PAREDE == tipoCelula;
+	
+	public boolean isPacman() {
+		return TipoCelula.PACMAN == tipoCelula;
+	}
+	
+	public boolean isComida() {
+		return TipoCelula.COMIDA == tipoCelula;
 	}
 	
 	public boolean isCaminho() {
 		return TipoCelula.CAMINHO == tipoCelula;
+	}
+	
+	public boolean isParede() {
+		return TipoCelula.PAREDE == tipoCelula;
+	}
+	
+	public boolean isCaminhoPercorrido() {
+		return TipoCelula.CAMINHO_PERCORRIDO == tipoCelula;
+	}
+	
+	public boolean possuiCelulaPai() {
+		return this.celulaPai != null;
 	}
 	
 	private void definirTipoCelula(String valorCelula) {

@@ -44,19 +44,18 @@ public class Jogo implements Serializable {
 		
 		for (int linha=0 ; linha < grid.size() ; linha++) {
 			for(int coluna=0 ; coluna  < grid.get(linha).length() ; coluna++) {
-				celulas.put(linha+","+coluna, new Celula(linha, coluna, grid.get(linha).substring(coluna, coluna=1)));
+				celulas.put(linha+","+coluna, new Celula(linha, coluna, grid.get(linha).substring(coluna, coluna+1)));
 			}
 		}
 	}
 	
-	public Celula getCelula(int linha, int coluna) {
-		return celulas.get(linha+","+coluna);
+	public Celula getCelula(Coordenadas coordenadas) {
+		return getCelula(coordenadas.getLinha(), coordenadas.getColuna());
 	}
 	
-	public void imprimirMelhorCaminho() {
-		
+	public Celula getCelula(int linha, int coluna) {
+		return celulas.get(linha + "," + coluna);
 	}
-
 	
 
 }

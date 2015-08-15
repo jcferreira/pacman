@@ -1,13 +1,12 @@
 package br.com.pacman.jogo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import br.com.pacman.arquivo.LeitorArquivo;
+import br.com.pacman.estrategia.PacmanEngine;
 import br.com.pacman.model.Comida;
 import br.com.pacman.model.DimensaoGrid;
 import br.com.pacman.model.Jogo;
@@ -32,25 +31,20 @@ public class JogoPacman implements Serializable {
 	private LeitorArquivo leitorArquivo = new LeitorArquivo();
 	
 	public void iniciarJogo() {
-		List<Jogo> jogos = montarJogos();
+		Jogo jogo = montarJogos();
+		jogo.build();
+		PacmanEngine engine = new PacmanEngine(jogo);
+		engine.definirMelhorCaminho();
 	}
 	
-	private List<Jogo> montarJogos() {
+	private Jogo montarJogos() {
 		List<String> linhas = leitorArquivo.carregarLinhasArquivo();
-		List<Jogo> jogos = new ArrayList<Jogo>();
-		
 		Jogo jogo = new Jogo();
 		for (String linha : linhas) {
-			/* if (analisarLinha(linha.trim(), jogo) == PATTERN_FIM) {
-				jogos.add(jogo);
-				jogo = new Jogo();
-			} */
 			criarEstruturaJogo(linha.trim(), jogo);
 		}
 		
-		jogos.add(jogo);
-		
-		return jogos;
+		return jogo;
 	}
 	
 	private Pattern criarEstruturaJogo(String linha, Jogo jogo) {
