@@ -49,10 +49,6 @@ public class Jogo implements Serializable {
 		}
 	}
 	
-	public Celula getCelula(Coordenadas coordenadas) {
-		return getCelula(coordenadas.getLinha(), coordenadas.getColuna());
-	}
-	
 	public Celula getCelula(int linha, int coluna) {
 		return celulas.get(linha + "," + coluna);
 	}

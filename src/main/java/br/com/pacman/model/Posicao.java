@@ -14,8 +14,4 @@ import lombok.Data;
 		this.coordenadas = coordenadas;
 	}
 	
-	@Deprecated
-	public int getValorPosicao() {
-		return Math.abs(this.coordenadas.getLinha() + this.coordenadas.getColuna());
-	}
 }

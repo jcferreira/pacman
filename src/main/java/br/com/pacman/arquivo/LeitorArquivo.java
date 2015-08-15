@@ -21,9 +21,9 @@ public class LeitorArquivo implements Serializable {
 		try {
 			scanner = new Scanner(new FileReader(ARQUIVO));
 		} catch (FileNotFoundException e) {
-			
+			System.out.println(" >>>  Não foi encontrado arquivo informado.");
 		} catch (Exception e) { 
-			
+			e.printStackTrace();
 		}
 		
 		while (scanner.hasNextLine()) {

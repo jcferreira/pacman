@@ -18,12 +18,6 @@ public @Data class Celula extends Posicao implements Serializable {
 		this.definirTipoCelula(valorCelula);
 	}
 	
-	public int _getValorDaPosicaoEmRelacaoComida(Comida comida) {
-		return Math.abs(this.getCoordenadas().getLinha() - comida.getCoordenadas().getLinha()) + 
-			   Math.abs(this.getCoordenadas().getColuna() - comida.getCoordenadas().getColuna());
-	}
-	
-	
 	public boolean isPacman() {
 		return TipoCelula.PACMAN == tipoCelula;
 	}
