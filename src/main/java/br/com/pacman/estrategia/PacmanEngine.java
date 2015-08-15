@@ -21,46 +21,15 @@ public class PacmanEngine implements Serializable {
 	
 	
 	public void definirMelhorCaminho() {
-		List<Celula> melhoresVizinhos = new ArrayList<Celula>();
-		melhoresVizinhos = recuperarVizinhosMelhorCaminho(jogo.getPacman());
-		System.out.println(" >>>>>>>>>>>>>>>>  " + melhoresVizinhos.size());
-		
-		
+		List<Celula> caminhoPercorrido = new ArrayList<Celula>();
+		caminhoPercorrido = recuperarVizinhosMelhorCaminho(jogo.getPacman());
+		validarSeEncontrouComida(caminhoPercorrido);
+		imprimirMelhorCaminho(caminhoPercorrido);
 	}
 	
-	
-	
-/*
-	private List<Celula> recuperarVizinhosMelhorCaminho(Celula celulaAtual, List<Celula> melhoresVizinhos) {
-		
-		for (Celula celulaVizinha : recuperarVizinhos(celulaAtual)) {
-System.out.println(" >>> Celula Atual   - Tipo: " + celulaAtual.getTipoCelula() + "  |  Coordenadas: " + celulaAtual.getCoordenadas().getLinha() + "," + celulaAtual.getCoordenadas().getColuna());
-System.out.println(" >>> Celula Vizinha - Tipo: " + celulaVizinha.getTipoCelula() + "  |  Coordenadas: " + celulaVizinha.getCoordenadas().getLinha() + "," + celulaVizinha.getCoordenadas().getColuna());
-			if (celulaVizinha.getTipoCelula() == TipoCelula.COMIDA) break;
-			
-			if (podeAdicionarCelula(celulaAtual, celulaVizinha)) {
-				melhoresVizinhos.add(celulaVizinha);
-			} else {
-				continue;
-			}
-			// verificar loop infinito;
-			for (Celula celula : melhoresVizinhos) {
-				recuperarVizinhosMelhorCaminho(celula, melhoresVizinhos);
-			}
-		}
-		
-		return melhoresVizinhos;
-	}
-*/
-	
-	
-	
-	
-	
+
 	private List<Celula> recuperarVizinhosMelhorCaminho(Celula celulaAtual) {
 		List<Celula> caminhosPercorridos = new ArrayList<Celula>();
-		
-		
 		List<Celula> melhoresVizinhos = new ArrayList<Celula>();
 		melhoresVizinhos.add(celulaAtual);
 		
@@ -73,37 +42,18 @@ System.out.println(" >>> Celula Vizinha - Tipo: " + celulaVizinha.getTipoCelula(
 			melhoresVizinhos = vizinhos;
 		} while (!melhoresVizinhos.isEmpty() && !encontrouComida(melhoresVizinhos));
 		
-		
 		return melhoresVizinhos;
 	}
 	
-	
-/*
-	private List<Celula> recuperarVizinhosMelhorCaminho(Celula celulaAtual) {
-		List<Celula> melhoresVizinhos = new ArrayList<Celula>();
-		
-		for (Celula celulaVizinha : recuperarVizinhos(celulaAtual)) {
-			if (podeAdicionarCelula(celulaAtual, celulaVizinha)) {
-				melhoresVizinhos.add(celulaVizinha);
-			}
-		}
-		
-		return melhoresVizinhos;
-	}
-*/
-
-	
-
 	private List<Celula> recuperarVizinhos(List<Celula> celulasAtuais) {
 		List<Celula> celulasVizinhas = new ArrayList<Celula>();
 		
 		for (Celula celulaAtual : celulasAtuais) {
 			int linha = celulaAtual.getCoordenadas().getLinha();
 			int coluna = celulaAtual.getCoordenadas().getColuna();
-			
 			Celula celulaVizinha = null;
 			
-			//Celula Acima
+			// Vizinho Acima
 			celulaVizinha = jogo.getCelula(linha-1, coluna);
 			if (podeAdicionarCelula(celulaVizinha)) {
 				celulaVizinha.setCelulaPai(celulaAtual);
@@ -112,7 +62,7 @@ System.out.println(" >>> Celula Vizinha - Tipo: " + celulaVizinha.getTipoCelula(
 					break;
 			}
 			
-			//Celula Abaixo
+			// Vizinho Abaixo
 			celulaVizinha = jogo.getCelula(linha+1, coluna);
 			if (podeAdicionarCelula(celulaVizinha)) {
 				celulaVizinha.setCelulaPai(celulaAtual);
@@ -121,7 +71,7 @@ System.out.println(" >>> Celula Vizinha - Tipo: " + celulaVizinha.getTipoCelula(
 					break;
 			}
 			
-			// Celula Esquerda
+			// Vizinho Esquerda
 			celulaVizinha = jogo.getCelula(linha, coluna-1);
 			if (podeAdicionarCelula(celulaVizinha)) {
 				celulaVizinha.setCelulaPai(celulaAtual);
@@ -130,7 +80,7 @@ System.out.println(" >>> Celula Vizinha - Tipo: " + celulaVizinha.getTipoCelula(
 					break;
 			}
 			
-			// Celula Direita
+			// Vizinho Direita
 			celulaVizinha = jogo.getCelula(linha, coluna+1);
 			if (podeAdicionarCelula(celulaVizinha)) {
 				celulaVizinha.setCelulaPai(celulaAtual);
@@ -143,18 +93,8 @@ System.out.println(" >>> Celula Vizinha - Tipo: " + celulaVizinha.getTipoCelula(
 		return celulasVizinhas;
 	}
 	
-	private boolean podeAdicionarCelula(Celula celulaAtual, Celula celulaVizinha) {
-		if (celulaVizinha == null || celulaVizinha.getTipoCelula() == TipoCelula.PAREDE) return false;
-		
-		if (celulaVizinha.getValorDaPosicaoEmRelacaoComida(jogo.getComida()) < celulaAtual.getValorDaPosicaoEmRelacaoComida(jogo.getComida())) {
-			return true;
-		} 
-			
-		return false;
-	}
-
 	private boolean podeAdicionarCelula(Celula celulaVizinha) {
-		if (celulaVizinha != null && !celulaVizinha.possuiCelulaPai() && celulaVizinha.getTipoCelula() != TipoCelula.PAREDE) 
+		if (celulaVizinha != null && !celulaVizinha.possuiCelulaPai() && celulaVizinha.getTipoCelula() != TipoCelula.PAREDE && celulaVizinha.getTipoCelula() != TipoCelula.PACMAN) 
 			return true;
 		
 		return false;
@@ -168,5 +108,46 @@ System.out.println(" >>> Celula Vizinha - Tipo: " + celulaVizinha.getTipoCelula(
 		return false;
 	}
 	
+	private void validarSeEncontrouComida(List<Celula> caminhoPercorrido) {
+		Celula comida = null;
+		if (caminhoPercorrido != null && !caminhoPercorrido.isEmpty()) {
+			for (Celula vizinho : caminhoPercorrido) {
+				if (vizinho.isComida()) {
+					comida = vizinho;
+					break;
+				}
+			}
+		}
+		if (comida == null) {
+			System.out.println(" >>>>  Não foi encontrado caminho até a comida!  <<<< ");
+		}
+	}
+	
+	private void imprimirMelhorCaminho(List<Celula> caminhoPercorrido) {
+		if (caminhoPercorrido != null && !caminhoPercorrido.isEmpty()) {
+			Celula caminho = caminhoPercorrido.get(0).getCelulaPai();
+			for (Celula vizinho : caminhoPercorrido) {
+				if (vizinho.isComida()) {
+					caminho = vizinho.getCelulaPai();
+					break;
+				}
+			}
+			while (!caminho.isPacman()) {
+				int linha = caminho.getCoordenadas().getLinha();
+				int coluna = caminho.getCoordenadas().getColuna();
+				caminho = caminho.getCelulaPai();
+				jogo.getLabirinto()[linha][coluna] = "*";
+			}
+			
+			for (String[] linhas : jogo.getLabirinto()) {
+				String celula = "";
+				for (String coluna : linhas) {
+					celula += coluna;
+				}
+				System.out.println(celula);
+			}
+
+		}
+	}
 	
 }

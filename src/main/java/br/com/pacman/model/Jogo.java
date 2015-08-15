@@ -2,9 +2,7 @@ package br.com.pacman.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -24,14 +22,13 @@ public class Jogo implements Serializable {
 	@Getter @Setter
 	private DimensaoGrid dimensoes;
 	
-	@Getter
 	private List<String> grid;
 	
 	@Getter
 	private Map<String, Celula> celulas;
 	
-	@Getter @Setter
-	private String[][] melhorCaminho;
+	@Getter
+	private String[][] labirinto;
 	
 	
 	public void addGrid(String grid) {
@@ -41,10 +38,13 @@ public class Jogo implements Serializable {
 	
 	public void build() {
 		this.celulas = new HashMap<String, Celula>();
+		labirinto = new String[dimensoes.getCoordenadas().getLinha()][dimensoes.getCoordenadas().getColuna()];
 		
 		for (int linha=0 ; linha < grid.size() ; linha++) {
 			for(int coluna=0 ; coluna  < grid.get(linha).length() ; coluna++) {
-				celulas.put(linha+","+coluna, new Celula(linha, coluna, grid.get(linha).substring(coluna, coluna+1)));
+				String valorCelula = grid.get(linha).substring(coluna, coluna+1);
+				labirinto[linha][coluna] = valorCelula;
+				celulas.put(linha+","+coluna, new Celula(linha, coluna, valorCelula));
 			}
 		}
 	}

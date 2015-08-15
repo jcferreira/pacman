@@ -20,13 +20,11 @@ public class JogoPacman implements Serializable {
 	private final String REGEX_COMIDA = "^C=\\((\\d{1,2}),(\\d{1,2})\\)$";
 	private final String REGEX_DIMENSOES_GRID = "^(\\d{1,2})x(\\d{1,2})$";
 	private final String REGEX_GRID = "^(█.*█)$";
-	private final String REGEX_FIM = "^=== FIM ===$";
 	
 	private final Pattern PATTERN_PACMAN = Pattern.compile(REGEX_PACMAN);
 	private final Pattern PATTERN_COMIDA = Pattern.compile(REGEX_COMIDA);
 	private final Pattern PATTERN_DIMENSOES_GRID = Pattern.compile(REGEX_DIMENSOES_GRID);
 	private final Pattern PATTERN_GRID = Pattern.compile(REGEX_GRID);
-	private final Pattern PATTERN_FIM = Pattern.compile(REGEX_FIM);
 
 	private LeitorArquivo leitorArquivo = new LeitorArquivo();
 	
@@ -54,7 +52,6 @@ public class JogoPacman implements Serializable {
 		Matcher matcherComida = PATTERN_COMIDA.matcher(linha);
 		Matcher matcherDimensoesGrid = PATTERN_DIMENSOES_GRID.matcher(linha);
 		Matcher matcherGrid = PATTERN_GRID.matcher(linha);
-		Matcher matcherFim = PATTERN_FIM.matcher(linha);
 		
 		if (matcherPacman.matches()) {
 			pattern = PATTERN_PACMAN;
@@ -68,8 +65,6 @@ public class JogoPacman implements Serializable {
 		} else if (matcherGrid.matches()) {
 			pattern = PATTERN_GRID;
 			jogo.addGrid(matcherGrid.group(1));
-		} else if (matcherFim.matches()) {
-			pattern = PATTERN_FIM;
 		}
 		
 		return pattern;
