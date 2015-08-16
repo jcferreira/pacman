@@ -17,6 +17,8 @@ public class JogoPacman implements Serializable {
 
 	private static final long serialVersionUID = 4042758511106783875L;
 	
+	private final String ARQUIVO = "src/main/resources/input.txt";
+	
 	private final String REGEX_PACMAN = "^P=\\((\\d{1,2}),(\\d{1,2})\\)$";
 	private final String REGEX_COMIDA = "^C=\\((\\d{1,2}),(\\d{1,2})\\)$";
 	private final String REGEX_DIMENSOES_GRID = "^(\\d{1,2})x(\\d{1,2})$";
@@ -37,7 +39,7 @@ public class JogoPacman implements Serializable {
 	}
 	
 	private Jogo montarJogos() {
-		List<String> linhas = leitorArquivo.carregarLinhasArquivo();
+		List<String> linhas = leitorArquivo.carregarLinhasArquivo(ARQUIVO);
 		Jogo jogo = new Jogo();
 		for (String linha : linhas) {
 			criarEstruturaJogo(linha.trim(), jogo);
