@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.pacman.exception.PacmanException;
 import br.com.pacman.model.Celula;
 import br.com.pacman.model.Jogo;
 import br.com.pacman.model.TipoCelula;
@@ -14,11 +15,9 @@ public class PacmanEngine implements Serializable {
 	
 	private Jogo jogo;
 	
-	
 	public PacmanEngine(Jogo jogo) {
 		this.jogo = jogo;
 	}
-	
 	
 	public void definirMelhorCaminho() {
 		List<Celula> caminhoPercorrido = new ArrayList<Celula>();
@@ -26,7 +25,6 @@ public class PacmanEngine implements Serializable {
 		validarSeEncontrouComida(caminhoPercorrido);
 		imprimirMelhorCaminho(caminhoPercorrido);
 	}
-	
 
 	private List<Celula> recuperarVizinhosMelhorCaminho(Celula celulaAtual) {
 		List<Celula> caminhosPercorridos = new ArrayList<Celula>();
@@ -119,7 +117,7 @@ public class PacmanEngine implements Serializable {
 			}
 		}
 		if (comida == null) {
-			System.out.println(" >>>>  Não foi encontrado caminho até a comida!  <<<< ");
+			throw new PacmanException("Não foi encontrado caminho até a comida!");
 		}
 	}
 	
@@ -136,7 +134,7 @@ public class PacmanEngine implements Serializable {
 				int linha = caminho.getCoordenadas().getLinha();
 				int coluna = caminho.getCoordenadas().getColuna();
 				caminho = caminho.getCelulaPai();
-				jogo.getLabirinto()[linha][coluna] = "*";
+				jogo.getLabirinto()[linha][coluna] = TipoCelula.CAMINHO_PERCORRIDO.getValor();
 			}
 			
 			for (String[] linhas : jogo.getLabirinto()) {

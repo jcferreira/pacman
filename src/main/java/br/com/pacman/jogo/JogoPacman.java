@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import br.com.pacman.arquivo.LeitorArquivo;
 import br.com.pacman.estrategia.PacmanEngine;
+import br.com.pacman.exception.PacmanException;
 import br.com.pacman.model.Comida;
 import br.com.pacman.model.DimensaoGrid;
 import br.com.pacman.model.Jogo;
@@ -41,7 +42,7 @@ public class JogoPacman implements Serializable {
 		for (String linha : linhas) {
 			criarEstruturaJogo(linha.trim(), jogo);
 		}
-		
+		validarJogo(jogo);
 		return jogo;
 	}
 	
@@ -68,6 +69,25 @@ public class JogoPacman implements Serializable {
 		}
 		
 		return pattern;
+	}
+	
+	private void validarJogo(Jogo jogo) {
+		if (jogo.getPacman() == null) {
+			throw new PacmanException("Não foi informado a posição do pacman no labirinto.");
+		}
+		
+		if (jogo.getComida() == null) {
+			throw new PacmanException("Não foi informado a posição da comida no labirinto.");
+		}
+		
+		if (jogo.getDimensoes() == null) {
+			throw new PacmanException("Não foi informado as dimensões do labirinto.");
+		}
+		
+		if (jogo.getPacman() == null) {
+			throw new PacmanException("O labirinto informado não está no padrão de leitura esperado.");
+		}
+		
 	}
 	
 }

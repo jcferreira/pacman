@@ -2,6 +2,7 @@ package br.com.pacman;
 
 import java.io.Serializable;
 
+import br.com.pacman.exception.PacmanException;
 import br.com.pacman.jogo.JogoPacman;
 
 public class Principal implements Serializable {
@@ -11,7 +12,14 @@ public class Principal implements Serializable {
 	public static void main(String[] args) {
 		
 		JogoPacman jogoPacman = new JogoPacman();
-		jogoPacman.iniciarJogo();
+		try {
+			jogoPacman.iniciarJogo();
+		} catch (PacmanException ex) {
+			System.out.println("  >>>>>>  " + ex.getMessage());
+		} catch (Exception ex) {
+			System.out.println("Ocorreu um erro na execução do programa: " + ex.getMessage());
+			ex.printStackTrace();
+		}
 		
 	}
 

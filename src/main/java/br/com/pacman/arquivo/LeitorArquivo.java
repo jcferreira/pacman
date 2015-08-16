@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import br.com.pacman.exception.PacmanException;
+
 public class LeitorArquivo implements Serializable {
 
 	private static final long serialVersionUID = -7402580264152967775L;
@@ -21,14 +23,15 @@ public class LeitorArquivo implements Serializable {
 		try {
 			scanner = new Scanner(new FileReader(ARQUIVO));
 		} catch (FileNotFoundException e) {
-			System.out.println(" >>>  Não foi encontrado arquivo informado.");
+			throw new PacmanException("Não foi encontrado arquivo informado.");
 		} catch (Exception e) { 
-			e.printStackTrace();
+			throw new PacmanException("Não foi possível ler o arquivo de origem.", e);
 		}
 		
 		while (scanner.hasNextLine()) {
 			linhas.add(scanner.nextLine());
 		}
+		scanner.close();
 		return linhas;
 	}
 	
