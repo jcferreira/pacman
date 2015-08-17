@@ -9,13 +9,13 @@ import br.com.pacman.model.Celula;
 import br.com.pacman.model.Jogo;
 import br.com.pacman.model.TipoCelula;
 
-public class PacmanEngine implements Serializable {
+public class PacmanBusiness implements Serializable {
 
 	private static final long serialVersionUID = 8312042664675866410L;
 	
 	private Jogo jogo;
 	
-	public PacmanEngine(Jogo jogo) {
+	public PacmanBusiness(Jogo jogo) {
 		this.jogo = jogo;
 	}
 	
