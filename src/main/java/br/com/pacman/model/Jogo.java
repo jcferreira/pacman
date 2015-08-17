@@ -53,6 +53,17 @@ public class Jogo implements Serializable {
 		return celulas.get(linha + "," + coluna);
 	}
 	
+	public String printLinhaPacman() {
+		return "P=(" + this.getPacman().getCoordenadas().getLinha() + "," + this.getPacman().getCoordenadas().getColuna() + ")";
+	}
+
+	public String printLinhaComida() {
+		return "C=(" + this.getComida().getCoordenadas().getLinha() + "," + this.getComida().getCoordenadas().getColuna() + ")";
+	}
+
+	public String printLinhaDimensoes() {
+		return this.getDimensoes().getCoordenadas().getLinha() + "x" + this.getDimensoes().getCoordenadas().getColuna();
+	}
 
 }
 

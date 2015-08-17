@@ -20,10 +20,26 @@ public class PacmanBusiness implements Serializable {
 	}
 	
 	public void definirMelhorCaminho() {
+		validarJogo(jogo);
 		List<Celula> caminhoPercorrido = new ArrayList<Celula>();
 		caminhoPercorrido = recuperarVizinhosMelhorCaminho(jogo.getPacman());
 		validarSeEncontrouComida(caminhoPercorrido);
 		imprimirMelhorCaminho(caminhoPercorrido);
+	}
+	
+	public void validarJogo(Jogo jogo) {
+		if (jogo.getPacman() == null) {
+			throw new PacmanException("Não foi informado a posição do pacman no labirinto.");
+		}
+		
+		if (jogo.getComida() == null) {
+			throw new PacmanException("Não foi informado a posição da comida no labirinto.");
+		}
+		
+		if (jogo.getDimensoes() == null) {
+			throw new PacmanException("Não foi informado as dimensões do labirinto.");
+		}
+		
 	}
 
 	private List<Celula> recuperarVizinhosMelhorCaminho(Celula celulaAtual) {
@@ -123,6 +139,10 @@ public class PacmanBusiness implements Serializable {
 	
 	private void imprimirMelhorCaminho(List<Celula> caminhoPercorrido) {
 		if (caminhoPercorrido != null && !caminhoPercorrido.isEmpty()) {
+			System.out.println(jogo.printLinhaPacman());
+			System.out.println(jogo.printLinhaComida());
+			System.out.println(jogo.printLinhaDimensoes());
+			
 			Celula caminho = caminhoPercorrido.get(0).getCelulaPai();
 			for (Celula vizinho : caminhoPercorrido) {
 				if (vizinho.isComida()) {
@@ -142,6 +162,7 @@ public class PacmanBusiness implements Serializable {
 				for (String coluna : linhas) {
 					celula += coluna;
 				}
+				
 				System.out.println(celula);
 			}
 

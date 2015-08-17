@@ -13,7 +13,7 @@ public class Principal implements Serializable {
 		
 		JogoPacman jogoPacman = new JogoPacman();
 		try {
-			jogoPacman.iniciarJogo();
+			jogoPacman.jogar();
 		} catch (PacmanException ex) {
 			System.out.println("  >>>>>>  " + ex.getMessage());
 		} catch (Exception ex) {
